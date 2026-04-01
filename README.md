@@ -1,3 +1,5 @@
+**AI Disclosure:** updates were made by AI without human verification, use at your own risk.
+
 # pangolin
 
 The project implements a python binding for 3D visualization library **[Pangolin](http://github.com/stevenlovegrove/Pangolin)**.
