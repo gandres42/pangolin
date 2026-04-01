@@ -75,6 +75,21 @@ IF(AVCODEC_INCLUDE_DIR AND AVFORMAT_INCLUDE_DIR AND AVUTIL_INCLUDE_DIR AND SWSCA
         AVPixelFormat test = AV_PIX_FMT_GRAY8;
       }" HAVE_FFMPEG_AVPIXELFORMAT
    )
+   CHECK_CXX_SOURCE_COMPILES(
+     "#include \"${AVCODEC_INCLUDE_DIR}/libavcodec/avcodec.h\"
+      #include \"${AVCODEC_INCLUDE_DIR}/libavformat/avformat.h\"
+      int main() {
+        AVFormatContext* fmt = 0;
+        AVStream* stream = fmt ? fmt->streams[0] : 0;
+        AVCodecContext* codec = stream ? stream->codec : 0;
+        AVPacket pkt;
+        AVFrame* frame = 0;
+        int got = 0;
+        av_init_packet(&pkt);
+        avcodec_decode_video2(codec, frame, &got, &pkt);
+        return 0;
+      }" HAVE_FFMPEG_LEGACY_API
+   )
 ENDIF()
 
 IF (FFMPEG_FOUND)
